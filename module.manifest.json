@@ -1,0 +1,95 @@
+{
+  "$schema": "https://sjgant80-hub.github.io/fallhub/modules/manifest.schema.json",
+  "name": "fallcrm-elite",
+  "version": "0.1.0",
+  "publisher": "AI-Native Solutions",
+  "publisher_url": "https://www.ai-nativesolutions.com/",
+  "licence": "MIT",
+  "description": "Sovereign CRM · contacts, pipeline, deals, notes, signal-based timelines. The CRM for people who hate CRMs. Client-portfolio kernel · signal timeline instead of activity log · agentic follow-up scheduling · offline-capable via IDB.",
+  "provides": [
+    "contacts",
+    "pipeline",
+    "deals",
+    "signal_timeline",
+    "agentic_followup",
+    "note_taking"
+  ],
+  "tools": [
+    {
+      "name": "create_contact",
+      "description": "Add a new contact to the CRM with initial signal state",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" },
+          "company": { "type": "string" },
+          "source": { "type": "string" }
+        },
+        "required": ["name"]
+      },
+      "guardrails": { "always_auto": true, "max_value_gbp": 0 },
+      "reversible_ms": 30000
+    },
+    {
+      "name": "update_deal_stage",
+      "description": "Move a deal to a new pipeline stage",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "deal_id": { "type": "string" },
+          "stage": { "type": "string" },
+          "value_gbp": { "type": "number" }
+        },
+        "required": ["deal_id", "stage"]
+      },
+      "guardrails": { "auto_low": true },
+      "reversible_ms": 60000
+    },
+    {
+      "name": "add_note",
+      "description": "Add a timestamped note to a contact or deal",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "target_id": { "type": "string" },
+          "text": { "type": "string" }
+        },
+        "required": ["target_id", "text"]
+      },
+      "guardrails": { "always_auto": true },
+      "reversible_ms": 0
+    },
+    {
+      "name": "schedule_followup",
+      "description": "Schedule an agentic follow-up on a contact at a specific date/time",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "contact_id": { "type": "string" },
+          "when": { "type": "string", "format": "date-time" },
+          "context": { "type": "string" }
+        },
+        "required": ["contact_id", "when"]
+      },
+      "guardrails": { "auto_low": true },
+      "reversible_ms": 3600000
+    }
+  ],
+  "kernel_extension": {
+    "crm": {
+      "pipeline_stages": ["lead", "qualified", "proposal", "negotiation", "won", "lost"],
+      "signal_types": ["email_open", "reply", "meeting", "call", "note", "deal_stage_change"],
+      "auto_follow_up_days": 7
+    }
+  },
+  "compatible_verticals": ["*"],
+  "requires": ["byok_adapter@>=1.0.0", "kernel", "events"],
+  "ui_surfaces": ["contacts.html", "pipeline.html", "deals.html"],
+  "js_entrypoint": "crm/crm.js",
+  "mit": true,
+  "konomi_seal": "◊·κ=1",
+  "estate": true,
+  "status": "spec"
+}
