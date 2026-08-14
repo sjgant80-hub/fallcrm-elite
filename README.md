@@ -1,5 +1,18 @@
 # FallCRM Elite
 
+**Live: https://sjgant80-hub.github.io/fallforce/**
+
+This repo is the manifest and the name. The CRM it describes is built and shipped as
+[FallForce](https://sjgant80-hub.github.io/fallforce/) — open that page, its own title is
+*FallCRM Elite*. This page redirects there.
+
+It used to serve a live public page carrying nothing but a heading and a licence line, which read
+as a product with nothing in it rather than as a name pointing at one.
+
+---
+
+# FallCRM Elite
+
 **The CRM for people who hate CRMs.**
 
 Sovereign contacts + pipeline + deals + notes + signal-based timelines. Every FallHub instance gets FallCRM Elite as a snap-in module.
